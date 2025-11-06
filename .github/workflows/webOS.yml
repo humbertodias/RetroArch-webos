@@ -11,6 +11,7 @@ on:
     types: [ published ]
   repository_dispatch:
     types: [ run_build ]
+  workflow_dispatch:
 
 env:
   PACKAGE_NAME: com.retroarch.webos
@@ -22,7 +23,7 @@ jobs:
 
     steps:
       - name: Check Out Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download ares-cli-rs
         uses: robinraju/release-downloader@v1.11
@@ -73,7 +74,7 @@ jobs:
         id: slug
         run: echo "sha8=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: com.retroarch.webos_${{ steps.slug.outputs.sha8 }}_arm.ipk
           path: |
